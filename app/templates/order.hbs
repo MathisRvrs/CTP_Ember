@@ -1,2 +1,81 @@
 {{page-title "Order"}}
+
+<a class="brown ui button" href="/board">Retour aux commandes à préparer</a>
+
+<div class="ui inverted segment">{{@model.user.name}} ({{@model.user.email}})</div>
+
+<div class="mini ui compact secondary segment">
+{{@model.dateCreation}}
+</div>
+{{@model.orderdetails.idProduct}}
+
+{{#each @model.orderdetails as |details|}}
+
+<div class="column">
+  <div class="ui attached teal segment">
+    <table class="ui celled table">
+      <thead>
+      <tr>
+        <th class="four wide column">Produit</th>
+        <th class="two wide column">Quantité</th>
+        <th class="two wide column">Prix</th>
+        <th class="three wide column">Montant</th>
+        <th class="three wide column">Préparation</th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#if details.prepared}}
+        <tr class="positive">
+          <td>{{ details.product.name }}</td>
+          <td>{{ details.quantity }}</td>
+          <td>{{ details.product.price }}</td>
+          <td>{{ details.amount }}</td>
+          <td><Input @type="checkbox" @checked={{details.prepared}}/> </td>
+        </tr>
+      {{else}}
+        <tr>
+          <td>{{ details.product.name }}</td>
+          <td>{{ details.quantity }}</td>
+          <td>{{ details.product.price }}</td>
+          <td>{{ details.amount }}</td>
+          <td><Input @type="checkbox" @checked={{details.prepared}}/> </td>
+        </tr>
+      {{/if}}
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{@model.amount}}</td>
+        <td>{{@model.toPay}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+  <h1>Produits Préparés </h1>
+
+  {{#each @model.orderdetails as |orderdetails|}}
+    {{#if orderdetails.prepared}}
+        <div class="ui relaxed divided list">
+          <div class="item">
+            <i class="suitcase icon big"></i>
+            <div class="content">
+            <a class="header">{{ orderdetails.product.name }}</a>
+            <div class="description">
+              {{ orderdetails.product.price }} X {{ orderdetails.quantity }}
+            </div>
+            </div>
+          </div>
+      </div>
+    <div class="ui divider"></div>
+    {{/if}}
+
+  {{/each}}
+  <a class="ui green button"> Valider pour {{@model.amount}} € </a>
+
+</div>
+{{/each}}
+
 {{outlet}}
