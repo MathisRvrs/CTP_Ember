@@ -1,0 +1,29 @@
+{{page-title "Index"}}
+<form {{action "login" @model on="submit"}}>
+  <div class="ui olive segment">
+    <h1>Connexion</h1>
+    <p></p>
+    <div class="ui form">
+      <div class="field">
+        <label>Email</label>
+        <div class="ui left icon input">
+          <Input type="email" required @value={{@model.email}} placeholder="Votre email"/>
+        <i class="user icon"></i>
+      </div>
+    </div>
+    <div class="field">
+      <label>Password</label>
+        <div class="ui left icon input">
+          <Input type="password" required @value={{@model.password}} placeholder="Votre mot de passe"/>
+            <i class="lock icon"></i>
+          </div>
+        </div>
+      <button type="submit" class="fluid ui grey submit button" >
+        Se connecter
+      </button>
+    </div>
+  </div>
+</form>
+
+
+{{outlet}}
